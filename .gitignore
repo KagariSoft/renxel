@@ -2,3 +2,4 @@ dialogue.tab
 out/temp/dialogue.tab
 out/rpy/dialogue.rpy
 out/xlsx/dialogue.xlsx
+__pycache__
