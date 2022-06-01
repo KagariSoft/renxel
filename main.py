@@ -121,11 +121,94 @@ class RenPyTLGenerator():
         print(">>> path: out/rpy/{}.rpy".format(self.Outfilename))
         print("------------------------------------------")
 
+
+class UpdateExcel():
+    def __init__(self, fileName="dialogue"):
+        self.fileName = fileName
+        self.data = []
+        self.get_data_from_tab()
+        while self.data:
+            self.generate_excel()
+            break
+
+    def get_data_from_tab(self):
+        with open('dialogue.tab', 'r') as tab:
+            rows = tab.readlines()[1:]
+            for line in csv.reader(rows, delimiter="\t"):
+
+                with open('out/temp/dialogue.tab', 'r') as old:
+                    rows = old.readlines()[1:]
+                    for old_line in csv.reader(rows, delimiter="\t"):
+
+                        if old_line[0] != line[0]:
+
+                            if line[1] == '':
+                                tupla = (line[0], "None", old_line[2], " ")
+                            elif line[1] == '' and line[3] != '':
+                                tupla = (line[0], "None",
+                                         old_line[2], old_line[3])
+                            elif line[3] != '':
+                                tupla = (line[0], "None", line[2], old_line[3])
+
+                            else:
+                                tupla = (line[0], line[1],
+                                         line[2], "")
+
+                        elif old_line[1] != line[1]:
+
+                            if line[1] == '':
+                                tupla = (old_line[0], "None",
+                                         line[2], old_line[3])
+                            elif line[1] == '' and line[3] != '':
+                                tupla = (old_line[0], "None",
+                                         line[2], old_line[3])
+                            elif line[3] != '':
+                                tupla = (old_line[0], "None",
+                                         line[2], old_line[3])
+
+                            else:
+                                tupla = (old_line[0], line[1],
+                                         old_line[2], old_line[3])
+
+                        elif old_line[2] != line[2]:
+                            if line[1] == '':
+                                tupla = (old_line[0], "None", line[2], " ")
+                            elif line[1] == '' and line[3] != '':
+                                tupla = (old_line[0], "None",
+                                         line[2], old_line[3])
+                            elif line[3] != '':
+                                tupla = (old_line[0], "None",
+                                         line[2], old_line[3])
+
+                            else:
+                                tupla = (line[0], line[1],
+                                         line[2], old_line[3])
+                        else:
+                            if line[1] == '':
+                                tupla = (line[0], "None", line[2], " ")
+                            else:
+                                tupla = (line[0], line[1], line[2], " ")
+
+                    self.data.append(tupla)
+
+    def generate_excel(self):
+        df = DataFrame(self.data, columns=[
+                       'id', 'Character', 'Dialogue', 'Translation'])
+        fil = self.fileName + '.xlsx'
+        df.to_excel("out/xlsx/{}".format(fil), index=False)
+
+        print("------------------------------------------")
+        print(">>> Excel generated.")
+        print(">>> path: out/xlsx/{}".format(fil))
+        print("------------------------------------------")
+
+
 if glob.glob("dialogue.tab"):
     print("""
     1) Generate excel file for translators
     2) Generate a new tl (.rpy) file with the excel file
-    3) Close
+    3) Upade excel file ()
+    4) Close
     """)
 
     CHOICES = input()
@@ -161,8 +244,16 @@ if glob.glob("dialogue.tab"):
             print("------------------------------------------")
             print(">>> Excel file not found, generate it first.")
             print("------------------------------------------")
-
     elif CHOICES == "3":
+        print("Do you want to name the file? [y/n]")
+        QUESTION = input()
+        if QUESTION == "y":
+            print("What is the file going to be called (without the .xlsx)?")
+            name = input()
+            UpdateExcel(name)
+        else:
+            UpdateExcel()
+    elif CHOICES == "4":
         pass
 else:
     print("------------------------------------------")
