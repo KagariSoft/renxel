@@ -61,6 +61,8 @@ Now you need use this commands in order to generate the TL Ren'Py file.
 
 > You do not need to delete the files that are located in the ./out/ folder when you update the dialogue.tab file, since they are generated again from 0.
 
+> To generate the rpy file, it is mandatory that the excel file is located in the out/xlsx/ folder.
+
 
 ## How to add on your project
 
