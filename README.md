@@ -1,4 +1,4 @@
-# Renpy translation to Excel and Excel to Renpy translation
+# Renpy dialogues to Excel and Excel to Renpy translation
 
 ## How to work
 
