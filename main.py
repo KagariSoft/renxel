@@ -39,7 +39,7 @@ class RenpyToExcel():
 
 class RenPyTLGenerator():
 
-    def __init__(self, lang, excel, Outfilename="dialogue"):
+    def __init__(self, lang, excel="dialogue", Outfilename="dialogue"):
         self.lang = lang
         self.Outfilename = Outfilename
         self.data = []
@@ -121,6 +121,7 @@ class RenPyTLGenerator():
         print(">>> path: out/rpy/{}.rpy".format(self.Outfilename))
         print("------------------------------------------")
 
+
 if glob.glob("dialogue.tab"):
     print("""
     1) Generate excel file for translators
@@ -130,38 +131,27 @@ if glob.glob("dialogue.tab"):
 
     CHOICES = input()
     if CHOICES == "1":
-        print("Do you want to name the file? [y/n]")
-        QUESTION = input()
-        if QUESTION == "y":
-            print("What is the file going to be called (without the .xlsx)?")
-            name = input()
-            RenpyToExcel(name)
-        else:
-            RenpyToExcel()
+        RenpyToExcel()
     elif CHOICES == '2':
         if glob.glob("out/xlsx/*.xlsx"):
             print("What is the language of the translation? (it has to be the name of the folder you generated with renpy)")
             lang = input()
 
-            print("What is the name of the excel file (without the .xlsx)?")
-            excel = input()
-
             print("Do you want to name the file? [y/n]")
             QUESTION = input()
 
-            while lang and excel:
+            while lang:
                 if QUESTION == 'y':
                     print("What will the rpy file be called? (without the .rpy)")
                     filename = input()
-                    RenPyTLGenerator(lang, excel, filename)
+                    RenPyTLGenerator(lang, Outfilename=filename)
                 else:
-                    RenPyTLGenerator(lang, excel)
+                    RenPyTLGenerator(lang)
                 break
         else:
             print("------------------------------------------")
             print(">>> Excel file not found, generate it first.")
             print("------------------------------------------")
-
     elif CHOICES == "3":
         pass
 else:
