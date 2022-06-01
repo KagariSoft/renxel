@@ -17,6 +17,8 @@ You need delete **only** the script will contains dialogues and screens text.
 
 example: screen.rpy, scripts.rpy
 
+> options.rpy also, because all strings inside this file will apear in the Excel
+
 > This script doesn't generate the common.rpy file/content.
 
 ## How to install and use
