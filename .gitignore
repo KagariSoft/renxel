@@ -22,3 +22,4 @@ build/window/window.pkg
 build/window/xref-window.html
 build/window/localpycos/struct.pyo
 dist/window.zip
+out/rpy/script_translations.rpy
