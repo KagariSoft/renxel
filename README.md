@@ -31,7 +31,6 @@ How to generate:
 ![](./screenshots/01.png)
 
 
-```
 now you can run `window` app
 You will see this buttons:
 
@@ -65,7 +64,6 @@ Now you need generate a Ren'Py dialogue file.
 How to generate:
 ![](./screenshots/01.png)
 
-put the dialogue.tab file in the same folder of this script.
 
 Then you can run the script.
 
