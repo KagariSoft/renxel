@@ -30,13 +30,7 @@ Now you need generate a Ren'Py dialogue file.
 How to generate:
 ![](./screenshots/01.png)
 
-put the dialogue.tab file in the same folder of this script.
 
-Example:
-```
-folder/
-├── dialogue.tab
-└── window
 ```
 now you can run `window` app
 You will see this buttons:
@@ -73,12 +67,6 @@ How to generate:
 
 put the dialogue.tab file in the same folder of this script.
 
-Example:
-```
-folder/
-├── dialogue.tab
-└── window.py
-```
 Then you can run the script.
 
 ```python
