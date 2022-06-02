@@ -81,6 +81,9 @@ class Window():
 def __main__():
     if not os.path.exists("out"):
         os.makedirs("out")
+        os.makedirs("out/xlsx")
+        os.makedirs("out/rpy")
+        os.makedirs("out/temp")
     root = tk.Tk()
     Window(root)
     root.mainloop()
