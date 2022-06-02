@@ -20,10 +20,11 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+import lib.rpyExcel as rpyExcel
+import os
 import tkinter as tk
 from tkinter import messagebox
-import os
-import lib.rpyExcel as rpyExcel
+from tkinter import filedialog
 
 
 class Window():
@@ -37,13 +38,11 @@ class Window():
         self.lang = ""
         self.langt = tk.StringVar()
 
-        self.excel = rpyExcel.RenpyToExcel(root, messagebox)
-
         self.langinp = tk.Entry(self.root, text="English", width=30)
         self.langinp.bind("<Key>", self.lang_inp)
 
         generate = tk.Button(
-            self.root, text="Generate Excel", command=self.excel.get_data_from_tab)
+            self.root, text="Generate Excel", command=self.OpenTab)
         self.generaterpy = tk.Button(
             self.root, text="Generate Rpy", state="disabled", command=self.ButtonRPy)
         close = tk.Button(self.root, text="Close", command=self.Close)
@@ -72,6 +71,16 @@ class Window():
         else:
             self.generaterpy.config(state="disabled")
             self.lang = ""
+
+    def OpenTab(self):
+        filename = filedialog.askopenfilename(
+            initialdir="/",
+            title="Select tab file",
+            filetypes=[("TAB file", "*.tab")]
+        )
+        if filename:
+            rpyExcel.RenpyToExcel(self.root,
+                                  messagebox, file=filename).get_data_from_tab()
 
     def Close(self):
         self.root.destroy()
