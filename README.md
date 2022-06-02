@@ -104,6 +104,20 @@ Now you need use this commands in order to generate the TL Ren'Py file.
 
 > To generate the rpy file, it is mandatory that the excel file is located in the out/xlsx/ folder.
 
+# How to build
+
+```bash
+
+$ ./build.sh
+
+```
+
+or 
+
+```
+pyinstaller --paths=lib --windowed --noconsole --clean --onefile window.py
+```
+
 
 ## How to add on your project
 
