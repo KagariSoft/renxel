@@ -1,10 +1,29 @@
-from logging import PlaceHolder
+# Copyright (c) KagariSoft.
+
+# Same has Ren'Py:
+# Permission is hereby granted, free of charge, to any person
+# obtaining a copy of this software and associated documentation files
+# (the "Software"), to deal in the Software without restriction,
+# including without limitation the rights to use, copy, modify, merge,
+# publish, distribute, sublicense, and/or sell copies of the Software,
+# and to permit persons to whom the Software is furnished to do so,
+# subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+# LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+# WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 import tkinter as tk
 from tkinter import messagebox
-import glob
 
-from click import command
-import main
+import lib.rpyExcel as rpyExcel
 
 
 class Window():
@@ -18,7 +37,7 @@ class Window():
         self.lang = ""
         self.langt = tk.StringVar()
 
-        self.excel = main.RenpyToExcel(root, messagebox)
+        self.excel = rpyExcel.RenpyToExcel(root, messagebox)
 
         self.langinp = tk.Entry(self.root, text="English", width=30)
         self.langinp.bind("<Key>", self.lang_inp)
@@ -27,7 +46,8 @@ class Window():
             self.root, text="Generate Excel", command=self.excel.get_data_from_tab)
         self.generaterpy = tk.Button(
             self.root, text="Generate Rpy", state="disabled", command=self.ButtonRPy)
-        close = tk.Button(self.root, text="Close")
+        close = tk.Button(self.root, text="Close", command=self.Close)
+
         text = tk.Label(self.root, text="Renpy Folder language name:")
 
         generate.grid(row=0, column=0)
@@ -41,7 +61,7 @@ class Window():
 
     def ButtonRPy(self):
 
-        main.RenPyTLGenerator(
+        rpyExcel.RenPyTLGenerator(
             messagebox, lang=self.langinp.get()).generator()
 
     def lang_inp(self, e):
@@ -52,6 +72,9 @@ class Window():
         else:
             self.generaterpy.config(state="disabled")
             self.lang = ""
+
+    def Close(self):
+        self.root.destroy()
         # self.langinp.config(text=self.lang)
 
 
