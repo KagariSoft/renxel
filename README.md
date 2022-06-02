@@ -21,7 +21,45 @@ example: screen.rpy, scripts.rpy
 
 > This script doesn't generate the common.rpy file/content.
 
-## How to install and use
+# How to use (Linux)
+
+make a folder and put inside `window`, then run the script.
+
+Now you need generate a Ren'Py dialogue file.
+
+How to generate:
+![](./screenshots/01.png)
+
+put the dialogue.tab file in the same folder of this script.
+
+Example:
+```
+folder/
+├── dialogue.tab
+└── window
+```
+now you can run `window` app
+You will see this buttons:
+
+```
+1) Generate excel
+2) Generate Rpy
+3) Close
+```
+
+Now you need use this commands in order to generate the TL Ren'Py file.
+
+1) Generate excel
+3) Add the language in the input (Folder TL language)
+4) Generate Rpy
+
+> You do not need to delete the files that are located in the ./out/ folder when you update the dialogue.tab file, since they are generated again from 0.
+
+
+> To generate the rpy file, it is mandatory that the excel file is located in the out/xlsx/ folder.
+
+
+# How to install and use (source code)
 
 First, you need install some libraries.
 
@@ -39,29 +77,30 @@ Example:
 ```
 folder/
 ├── dialogue.tab
-└── main.py
+└── window.py
 ```
 Then you can run the script.
 
 ```python
-python3 main.py
+python3 window.py
 ```
 
-You will see this messages:
+You will see this buttons:
 
 ```
-1) Generate excel file for translators
-2) Generate a new tl (.rpy) file with the excel file
+1) Generate excel
+2) Generate Rpy
 3) Close
 ```
 
 Now you need use this commands in order to generate the TL Ren'Py file.
 
-1) Generate excel file for translators
-
-2) Generate a new tl (.rpy) file with the excel file
+1) Generate excel
+3) Add the language in the input (Folder TL language)
+4) Generate Rpy
 
 > You do not need to delete the files that are located in the ./out/ folder when you update the dialogue.tab file, since they are generated again from 0.
+
 
 > To generate the rpy file, it is mandatory that the excel file is located in the out/xlsx/ folder.
 

@@ -1,0 +1,1 @@
+pyinstaller --paths=lib --windowed --noconsole --clean --onefile window.py
