@@ -21,3 +21,4 @@ build/window/warn-window.txt
 build/window/window.pkg
 build/window/xref-window.html
 build/window/localpycos/struct.pyo
+dist/window.zip
