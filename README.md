@@ -9,7 +9,10 @@ generate a Ren'Py translation file.
 ### Important!
 
 Yo need generate a Ren'Py translation first, then you can use this script to generate file.
+
 No delete the out folder or the folders inside out folder.
+
+No rename the excel file, the script will use the name of excel file to generate the Ren'Py file.
 
 ## What i need delete in tl folder?
 
