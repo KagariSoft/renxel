@@ -22,7 +22,7 @@
 
 import tkinter as tk
 from tkinter import messagebox
-
+import os
 import lib.rpyExcel as rpyExcel
 
 
@@ -79,6 +79,8 @@ class Window():
 
 
 def __main__():
+    if not os.path.exists("out"):
+        os.makedirs("out")
     root = tk.Tk()
     Window(root)
     root.mainloop()
