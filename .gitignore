@@ -25,3 +25,17 @@ dist/window.zip
 out/rpy/script_translations.rpy
 
 cli.sh
+build/renxel/Analysis-00.toc
+build/renxel/base_library.zip
+build/renxel/EXE-00.toc
+build/renxel/PKG-00.toc
+build/renxel/PYZ-00.pyz
+build/renxel/PYZ-00.toc
+build/renxel/renxel.pkg
+build/renxel/Tree-00.toc
+build/renxel/Tree-01.toc
+build/renxel/warn-renxel.txt
+build/renxel/xref-renxel.html
+build/renxel/localpycos/struct.pyo
+dist/renxel
+renxel.spec
