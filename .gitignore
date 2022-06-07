@@ -39,3 +39,4 @@ build/renxel/xref-renxel.html
 build/renxel/localpycos/struct.pyo
 dist/renxel
 renxel.spec
+out/rpy/script_translation.rpy
