@@ -1,129 +1,72 @@
-# Renpy dialogues to Excel and Excel to Renpy translation
+# Renxel
 
-## How to work
+## What is Renxel?
 
-First, the script generates a excel file using `dialogue.tab` and then make a Excel file.
-Whit the Excel file, you can edite and make the translation, then using this script you can 
-generate a Ren'Py translation file.
+Renxel, is an app that generates an Excel file from renpy's `dialogue.tab` file using python technology,
+it is also able to generate a `.rpy` translation file to import translations faster.
 
-### Important!
+# How to use Renxel
 
-Yo need generate a Ren'Py translation first, then you can use this script to generate file.
-
-No delete the out folder or the folders inside out folder.
-
-No rename the excel file, the script will use the name of excel file to generate the Ren'Py file.
-
-## What i need delete in tl folder?
-
-You need delete **only** the script will contains dialogues and screens text. 
-
-example: screen.rpy, scripts.rpy
-
-> options.rpy also, because all strings inside this file will apear in the Excel
-
-> This script doesn't generate the common.rpy file/content.
-
-# How to use (Linux)
-
-make a folder and put inside `window`, then run the script.
-
-Now you need generate a Ren'Py dialogue file.
-
-How to generate:
-![](./screenshots/01.png)
-
-
-now you can run `window` app
-You will see this buttons:
-
-```
-1) Generate excel
-2) Generate Rpy
-3) Close
-```
-
-Now you need use this commands in order to generate the TL Ren'Py file.
-
-1) Generate excel
-3) Add the language in the input (Folder TL language)
-4) Generate Rpy
-
-> You do not need to delete the files that are located in the ./out/ folder when you update the dialogue.tab file, since they are generated again from 0.
-
-
-> To generate the rpy file, it is mandatory that the excel file is located in the out/xlsx/ folder.
-
-
-# How to install and use (source code)
-
-First, you need install some libraries.
+## From source code
+### Install libraries
 
 ```bash
-$ pip install -r ./requirements.txt
-```
-Now you need generate a Ren'Py dialogue file.
-
-How to generate:
-![](./screenshots/01.png)
-
-
-Then you can run the script.
-
-```python
-python3 window.py
+pip install -r requirements.txt
 ```
 
-You will see this buttons:
-
-```
-1) Generate excel
-2) Generate Rpy
-3) Close
-```
-
-Now you need use this commands in order to generate the TL Ren'Py file.
-
-1) Generate excel
-3) Add the language in the input (Folder TL language)
-4) Generate Rpy
-
-> You do not need to delete the files that are located in the ./out/ folder when you update the dialogue.tab file, since they are generated again from 0.
-
-
-> To generate the rpy file, it is mandatory that the excel file is located in the out/xlsx/ folder.
-
-# How to build
+### Run Renxel
 
 ```bash
-
+python3 renxel.py
+```
+### How to build
+    
+```bash
 $ ./build.sh
-
 ```
-
-or 
-
+or
+```bash
+$ pyinstaller --paths=lib --windowed --noconsole --clean --onefile --name="renxel" renxel.py
 ```
-pyinstaller --paths=lib --windowed --noconsole --clean --onefile window.py
-```
+# Getting Started
+
+First you must generate a `dialogue.tab` file from renpy.
+
+![](./screenshots/01.png)
+
+Then from Renxel you must use the `Generate Excel` button to generate a `dialogue.xlsx` file, which can be sent to the translators for translation.
+
+However, the `dialogue.xlsx` file is required to be located in the `out/xlsx` folder with the same name that was used to generate the `.rpy` file.
+
+To generate the `.rpy` file you must use the `Generate .rpy` button, but first, you must type the name of the language you are going to translate to, the folder name is in `game/tl/<Folder>`.
 
 
-## How to add on your project
-
+# How to add on your project
 cut the file in `out/rpy/*.rpy` and paste it in your tl folder.
-```
+```tree
 game/
 ├── tl/
     ├── [folder]/
         ├── [file].rpy
-
 ```
+## What i need delete in tl folder?
+
+You need delete only the script will contains dialogues and screens text.
+
+example: `screen.rpy`, `scripts.rpy`, `options.rpy`
+
+> **Note:** If you generated `dialogue.tab` by extracting only the dialogs, do not delete screen.rpy, options.rpy ![](./screenshots/02.png)
+
 
 
 # Important notes:
 
-You may not get the script.rpy or screen.rpy files generated again if you regenerate the translation, don't panic. This is because they are now in a single file.
+* You may not get the script.rpy or screen.rpy files generated again if you regenerate the translation, don't panic. This is because they are now in a single file.
 
-Now, instead of generating a translation update (dialogs, screens) as we normally do, we will have to extract the dialogs together with the translatable strings.
+* Dialogue.tab does not take into account native renpy screens(`common.rpy`), so only translatable strings that exist inside the ./game or .game/* folder will be generated.
 
-Dialogue.tab does not take into account native renpy screens, so only translatable strings that exist inside the ./game or .game/* folder will be generated.
+* Yo need generate a Ren'Py translation first, then you can use this script to generate file.
+
+* No delete the `out` folder or the folders inside `out` folder.
+
+* It is recommended to use this app only with finished projects, the app will not update already translated strings.
