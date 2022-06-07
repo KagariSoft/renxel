@@ -28,7 +28,7 @@ from tkinter import messagebox
 from tkinter import filedialog
 import webbrowser as wb
 
-_version = "1.0.2"
+_version = "1.0.3"
 _debug_version = "1.0.2"
 
 
@@ -49,7 +49,7 @@ class Window():
         generate = tk.Button(
             self.root, text="Generate Excel", command=self.OpenTab)
         self.generaterpy = tk.Button(
-            self.root, text="Generate Rpy", state="disabled", command=self.ButtonRPy)
+            self.root, text="Generate Rpy", state="disabled", command=self.OpenExcel)
         close = tk.Button(self.root, text="Close", command=self.Close)
 
         text = tk.Label(self.root, text="Renpy Folder language name:")
@@ -62,12 +62,7 @@ class Window():
         close.grid(row=2, column=0)
         self.langinp.grid(row=1, column=2, padx=10, pady=10)
         text.grid(row=0, column=2)
-
-    def ButtonRPy(self):
-
-        rpyExcel.RenPyTLGenerator(
-            messagebox, lang=self.langinp.get()).generator()
-
+        
     def lang_inp(self, e):
 
         if len(self.langinp.get()) > 0:
@@ -86,6 +81,16 @@ class Window():
         if filename:
             rpyExcel.RenpyToExcel(self.root,
                                   messagebox, file=filename).get_data_from_tab()
+
+    def OpenExcel(self):
+        filename = filedialog.askopenfilename(
+            initialdir="/",
+            title="Select xlsx file",
+            filetypes=[("Excel file", "*.xlsx")]
+        )
+        if filename:
+            rpyExcel.RenPyTLGenerator(
+                messagebox, excel=filename, lang=self.langinp.get()).generator()
 
     def Close(self):
         self.root.destroy()

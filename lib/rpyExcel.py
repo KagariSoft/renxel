@@ -64,7 +64,7 @@ class RenpyToExcel():
 
 class RenPyTLGenerator():
 
-    def __init__(self, messagebox, excel="dialogue", Outfilename="script_translations", lang=""):
+    def __init__(self, messagebox, excel="", Outfilename="script_translation", lang=""):
         self.lang = lang
         self.Outfilename = Outfilename
         self.data = []
@@ -75,33 +75,28 @@ class RenPyTLGenerator():
     def generator(self):
 
         if self.lang != "":
-            if glob.glob("out/xlsx/*.xlsx"):
+            rows = pd.read_excel(self.excel, usecols=[
+                'id', 'Character', 'Dialogue', 'Translation'])
+            cv = rows.to_csv(index=False, index_label=False)
 
-                fil = self.excel + '.xlsx'
-                rows = pd.read_excel("out/xlsx/{}".format(fil), usecols=[
-                    'id', 'Character', 'Dialogue', 'Translation'])
-                cv = rows.to_csv(index=False, index_label=False)
+            with open('out/temp/dialogue.tab', 'w') as f:
+                f.write(cv)
 
-                with open('out/temp/dialogue.tab', 'w') as f:
-                    f.write(cv)
+            time.sleep(1)
+            with open('out/temp/dialogue.tab', 'r') as tab:
+                rows = tab.readlines()[1:]
+                for line in csv.reader(rows):
 
-                time.sleep(1)
-                with open('out/temp/dialogue.tab', 'r') as tab:
-                    rows = tab.readlines()[1:]
-                    for line in csv.reader(rows):
+                    if line[1] == '':
+                        tupla = (line[0], "None", line[2], line[3])
+                    elif line[0] == '':
+                        tupla = ("string", line[1], line[2], line[3])
+                    else:
+                        tupla = (line[0], line[1], line[2], line[3])
 
-                        if line[1] == '':
-                            tupla = (line[0], "None", line[2], line[3])
-                        elif line[0] == '':
-                            tupla = ("string", line[1], line[2], line[3])
-                        else:
-                            tupla = (line[0], line[1], line[2], line[3])
-
-                        self.data.append(tupla)
-                    self.write_translates()
-            else:
-                self.messagebox.showerror(
-                    "Error", "No xlsx file found")
+                    self.data.append(tupla)
+                self.write_translates()
+       
         else:
             self.messagebox.showerror(
                 "Error", "You are not provider the language")
