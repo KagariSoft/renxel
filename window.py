@@ -20,11 +20,16 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+import requests
 import lib.rpyExcel as rpyExcel
 import os
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import filedialog
+
+
+_version = "1.0.1"
+_debug_version = "1.0.2"
 
 
 class Window():
@@ -84,7 +89,20 @@ class Window():
 
     def Close(self):
         self.root.destroy()
-        # self.langinp.config(text=self.lang)
+
+
+def CheckVersion():
+    try:
+        result = requests.get(
+            "https://api.github.com/repos/KagariSoft/renxel/releases/latest")
+        version = result.json()["tag_name"]
+        if version > _version:
+            print("New version available: v{}".format(version))
+        else:
+            print("No new version available")
+
+    except Exception as e:
+        print(e)
 
 
 def __main__():
@@ -94,6 +112,7 @@ def __main__():
         os.makedirs("out/rpy")
         os.makedirs("out/temp")
     root = tk.Tk()
+    CheckVersion()
     Window(root)
     root.mainloop()
 

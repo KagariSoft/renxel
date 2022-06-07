@@ -1,1 +1,1 @@
-pyinstaller --paths=lib --windowed --noconsole --clean --onefile window.py
+pyinstaller --paths=lib --windowed --noconsole --clean --onefile --name="renxel" window.py
