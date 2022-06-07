@@ -36,8 +36,6 @@ First you must generate a `dialogue.tab` file from renpy.
 
 Then from Renxel you must use the `Generate Excel` button to generate a `dialogue.xlsx` file, which can be sent to the translators for translation.
 
-However, the `dialogue.xlsx` file is required to be located in the `out/xlsx` folder with the same name that was used to generate the `.rpy` file.
-
 To generate the `.rpy` file you must use the `Generate .rpy` button, but first, you must type the name of the language you are going to translate to, the folder name is in `game/tl/<Folder>`.
 
 
