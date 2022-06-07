@@ -96,7 +96,7 @@ def CheckVersion(root):
         result = requests.get(
             "https://api.github.com/repos/KagariSoft/renxel/releases/latest")
         version = result.json()["tag_name"]
-        if _debug_version > _version:
+        if version > _version:
             msg = messagebox.askokcancel(message="Renxel detected that there is a new version, do you want to update the app? This will open the Github.com page.",
                                          title="New version available v{}".format(version))
             if msg:
