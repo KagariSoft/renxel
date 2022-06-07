@@ -1,11 +1,11 @@
-# Renxel
+# Ren'Xel
 
-## What is Renxel?
+## What is Ren'Xel?
 
-Renxel, is an app that generates an Excel file from renpy's `dialogue.tab` file using python technology,
+Ren'Xel, is an app that generates an Excel file from renpy's `dialogue.tab` file using python technology,
 it is also able to generate a `.rpy` translation file to import translations faster.
 
-# How to use Renxel
+# How to use Ren'Xel
 
 ## From source code
 ### Install libraries
@@ -14,7 +14,7 @@ it is also able to generate a `.rpy` translation file to import translations fas
 pip install -r requirements.txt
 ```
 
-### Run Renxel
+### Run Ren'Xel
 
 ```bash
 python3 renxel.py
@@ -34,7 +34,7 @@ First you must generate a `dialogue.tab` file from renpy.
 
 ![](./screenshots/01.png)
 
-Then from Renxel you must use the `Generate Excel` button to generate a `dialogue.xlsx` file, which can be sent to the translators for translation.
+Then from Ren'Xel you must use the `Generate Excel` button to generate a `dialogue.xlsx` file, which can be sent to the translators for translation.
 
 However, the `dialogue.xlsx` file is required to be located in the `out/xlsx` folder with the same name that was used to generate the `.rpy` file.
 
