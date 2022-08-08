@@ -1,13 +1,14 @@
 import zipfile
 import os
 import platform
-if platform.platform() == "Windows":
+
+if platform.system() == "Windows":
     renxel = "./dist/renxel.exe"
     renxel_zip = "./dist/renxel-windows.zip"
     zip = zipfile.ZipFile(renxel_zip, "w", zipfile.ZIP_DEFLATED)
     zip.write(renxel, os.path.basename(renxel))
     zip.close()
-elif platform.platform() == "Ubuntu":
+elif platform.system() == "Ubuntu":
     renxel = "./dist/renxel"
     renxel_zip = "./dist/renxel-linux.zip"
     zip = zipfile.ZipFile(renxel_zip, "w", zipfile.ZIP_DEFLATED)
