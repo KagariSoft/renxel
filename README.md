@@ -38,6 +38,8 @@ Then from Ren'Xel you must use the `Generate Excel` button to generate a `dialog
 
 To generate the `.rpy` file you must use the `Generate .rpy` button, but first, you must type the name of the language you are going to translate to, the folder name is in `game/tl/<Folder>`.
 
+Youtube video: [https://www.youtube.com/watch?v=wlkLJdiIO-g](https://www.youtube.com/watch?v=wlkLJdiIO-g)
+
 
 # How to add on your project
 cut the file in `out/rpy/*.rpy` and paste it in your tl folder.
