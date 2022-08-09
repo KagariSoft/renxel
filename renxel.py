@@ -50,6 +50,7 @@ class Window():
             self.root, text="Generate Excel", command=self.OpenTab)
         self.generaterpy = tk.Button(
             self.root, text="Generate Rpy", state="disabled", command=self.OpenExcel)
+        donate = tk.Button(self.root, text="Donate", command=self.Donate)
         close = tk.Button(self.root, text="Close", command=self.Close)
 
         text = tk.Label(self.root, text="Renpy Folder language name:")
@@ -58,11 +59,14 @@ class Window():
         generate.config(font=("Helvetica", 11), width=23)
         self.generaterpy.config(font=("Helvetica", 11), width=23)
         self.generaterpy.grid(row=1, column=0)
+        donate.config(font=("Helvetica", 11), width=23)
+        donate.grid(row=2, column=0)
+
         close.config(font=("Helvetica", 11), width=23)
-        close.grid(row=2, column=0)
+        close.grid(row=3, column=0)
         self.langinp.grid(row=1, column=2, padx=10, pady=10)
         text.grid(row=0, column=2)
-        
+
     def lang_inp(self, e):
 
         if len(self.langinp.get()) > 0:
@@ -91,6 +95,9 @@ class Window():
         if filename:
             rpyExcel.RenPyTLGenerator(
                 messagebox, excel=filename, lang=self.langinp.get()).generator()
+
+    def Donate(self):
+        wb.open_new("https://ko-fi.com/kagarisoft")
 
     def Close(self):
         self.root.destroy()
