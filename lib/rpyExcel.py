@@ -73,7 +73,7 @@ class RenpyToExcel():
         time.sleep(1)
 
         self.messagebox.showinfo(
-            "Info", "xlsx file generated in {}/out/xlsx/dialogue.xlsx").format(directory)
+            "Info", "xlsx file generated in out/xlsx/dialogue.xlsx")
 
         self.data = []  # clear the cache
 
