@@ -20,6 +20,7 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+import json
 import csv
 import glob
 import os
@@ -44,6 +45,9 @@ class RenpyToExcel():
                 for line in lines:
                     if line[1] == '':
                         t = (line[0], "None", line[2], " ")
+                        self.data.append(t)
+                    elif line[0] == '':
+                        t = ("None", line[1], line[2], " ")
                         self.data.append(t)
                     else:
                         t = (line[0], line[1], line[2], " ")
@@ -87,36 +91,26 @@ class RenPyTLGenerator():
         if self.lang != "":
             rows = pd.read_excel(self.excel, usecols=[
                 'id', 'Character', 'Dialogue', 'Translation'])
-
             cv = rows.to_csv(index=False, index_label=False)
 
-            with open("out/temp/dialogue.tab", "w", encoding="utf8") as f:
-                f.write(cv)
-                f.close()
+            with open("out/temp/dialogue.csv", "w", encoding="UTF-8") as c:
+                c.write(cv)
 
-                self.read_temporal_tab()
-
+            self.read_temporal_tab()
         else:
             self.messagebox.showerror(
                 "Error", "You are not provider the language")
 
     def read_temporal_tab(self):
 
-        with open("out/temp/dialogue.tab", 'r', encoding="UTF-8", newline='') as tab:
-            rows = tab.readlines()[1:]
-            lines = csv.reader(rows, delimiter="\t")
+        with open("out/temp/dialogue.csv", 'r', encoding="UTF-8") as tab:
+            rows = tab.readlines()[2:]
+            lines = csv.reader(rows, delimiter=",")
 
-            for line in lines:
-                print(line)
-                # if line[1] == '':
-                #     tupla = (line[0], "None", line[2], line[3])
-                #     self.data.append(tupla)
-                # elif line[0] == '':
-                #     tupla = ("string", line[1], line[2], line[3])
-                #     self.data.append(tupla)
-                # else:
-                #     tupla = (line[0], line[1], line[2], line[3])
-                #     self.data.append(tupla)
+            for l in lines:
+                if len(l) > 0:
+                    t = (l[0], l[1], l[2], l[1])
+                    self.data.append(t)
 
             while self.data:
                 time.sleep(1)
@@ -124,7 +118,7 @@ class RenPyTLGenerator():
                 break
 
     def write_translates(self):
-        with open('out/rpy/{}.rpy'.format(self.Outfilename), 'w') as tab:
+        with open('out/rpy/{}.rpy'.format(self.Outfilename), 'w', encoding="UTF-8") as tab:
             for i in self.data:
 
                 if i[0] == "string":
