@@ -1,7 +1,9 @@
 dialogue.tab
 out
 __pycache__
-dist
+
+*.zip
+*.exe
 build
 cli.sh
 renxel.spec
