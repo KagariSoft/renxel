@@ -28,7 +28,7 @@ from tkinter import messagebox
 from tkinter import filedialog
 import webbrowser as wb
 
-_version = "1.0.6"
+_version = "1.0.7"
 _debug_version = "1.0.2"
 
 
@@ -110,7 +110,7 @@ def CheckVersion(root):
             "https://api.github.com/repos/KagariSoft/renxel/releases/latest")
         version = result.json()["tag_name"]
         if version > _version:
-            msg = messagebox.askokcancel(message="Ren'Xel detected that there is a new version, do you want to update the app? This will open the Github.com page.",
+            msg = messagebox.askokcancel(message="Ren'Xel detected that there is a new version, do you want to update the app? This will open the Itch page.",
                                          title="New version available v{}".format(version))
             if msg:
                 wb.open("https://kagarisoft.itch.io/renxel")
