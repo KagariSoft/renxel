@@ -43,10 +43,11 @@ class RenpyToExcel():
                 rows = tab.readlines()[1:]
                 lines = csv.reader(rows, delimiter="\t")
                 for line in lines:
-                    if line[1] == '':
+                    print(line)
+                    if line[1] == "":
                         t = (line[0], "None", line[2], " ")
                         self.data.append(t)
-                    elif line[0] == '':
+                    elif line[0] == "":
                         t = ("None", line[1], line[2], " ")
                         self.data.append(t)
                     else:
@@ -109,8 +110,12 @@ class RenPyTLGenerator():
 
             for l in lines:
                 if len(l) > 0:
-                    t = (l[0], l[1], l[2], l[1])
-                    self.data.append(t)
+                    if l[0] == '':
+                        t = ("type:screen", l[1], l[2], l[3])
+                        self.data.append(t)
+                    else:
+                        t = (l[0], l[1], l[2], l[3])
+                        self.data.append(t)
 
             while self.data:
                 time.sleep(1)
@@ -121,22 +126,22 @@ class RenPyTLGenerator():
         with open('out/rpy/{}.rpy'.format(self.Outfilename), 'w', encoding="UTF-8") as tab:
             for i in self.data:
 
-                if i[0] == "string":
+                if i[0] == "type:screen":
                     tab.write(u"translate {} {}:\n".format(
                         self.lang, "strings"))
 
                     tab.write(u'    old "{}"\n'.format(i[2]))
-                    tab.write(u'    new "{}"\n'.format(i[3]))
+                    tab.write(u'    new "{}"\n'.format(i[3].strip()))
                 else:
                     tab.write(u"translate {} {}:\n".format(
                         self.lang, i[0]))
 
                     if i[1] == "None":
                         tab.write(u'    # "{}"\n'.format(i[2]))
-                        tab.write(u'    "{}"\n'.format(i[3]))
+                        tab.write(u'    "{}"\n'.format(i[3].strip()))
                     else:
                         tab.write(u'    # {} "{}"\n'.format(i[1], i[2]))
-                        tab.write(u'    {} "{}"\n'.format(i[1], i[3]))
+                        tab.write(u'    {} "{}"\n'.format(i[1], i[3].strip()))
 
                 tab.write(u"\n")
             self.messagebox.showinfo(

@@ -25,8 +25,9 @@ python3 renxel.py
 $ ./build.sh
 ```
 or
+
 ```bash
-$ pyinstaller --paths=lib --windowed --noconsole --clean --onefile --name="renxel" renxel.py
+$ pyinstaller --paths=lib --paths=assets --windowed --noconsole --clean --onefile --icon="window_icon.ico" --name="renxel" renxel.py
 ```
 # Getting Started
 
