@@ -70,6 +70,8 @@ class RenpyToExcel():
         self.messagebox.showinfo(
             "Info", "xlsx file generated in {}/out/xlsx/dialogue.xlsx").format(directory)
 
+        self.data = []  # clear the cache
+
 
 class RenPyTLGenerator():
 
@@ -82,33 +84,46 @@ class RenPyTLGenerator():
         self.excel = excel
 
     def generator(self):
-
         if self.lang != "":
             rows = pd.read_excel(self.excel, usecols=[
                 'id', 'Character', 'Dialogue', 'Translation'])
             cv = rows.to_csv(index=False, index_label=False)
 
-            with open('out/temp/dialogue.tab', 'w') as f:
+            with open('out/temp/dialogue.tab', 'w', encoding="UTF-8", newline='') as f:
+
                 f.write(cv)
 
-            time.sleep(1)
-            with open('out/temp/dialogue.tab', 'r') as tab:
-                rows = tab.readlines()[1:]
-                for line in csv.reader(rows):
+                time.sleep(1)
 
-                    if line[1] == '':
-                        tupla = (line[0], "None", line[2], line[3])
-                    elif line[0] == '':
-                        tupla = ("string", line[1], line[2], line[3])
-                    else:
-                        tupla = (line[0], line[1], line[2], line[3])
+                # TODO: FAIL HERE
 
-                    self.data.append(tupla)
-                self.write_translates()
+                self.read_temporal_tab()
 
         else:
             self.messagebox.showerror(
                 "Error", "You are not provider the language")
+
+    def read_temporal_tab(self):
+
+        with open("out/temp/dialogue.tab", 'r', encoding="UTF-8", newline='') as tab:
+            rows = tab.readlines()[1:]
+            lines = csv.reader(rows, delimiter="\t")
+
+            for line in lines:
+                if line[1] == '':
+                    tupla = (line[0], "None", line[2], line[3])
+                    self.data.append(tupla)
+                elif line[0] == '':
+                    tupla = ("string", line[1], line[2], line[3])
+                    self.data.append(tupla)
+                else:
+                    tupla = (line[0], line[1], line[2], line[3])
+                    self.data.append(tupla)
+
+            while self.data:
+                time.sleep(1)
+                self.write_translates()
+                break
 
     def write_translates(self):
         with open('out/rpy/{}.rpy'.format(self.Outfilename), 'w') as tab:
@@ -134,3 +149,5 @@ class RenPyTLGenerator():
                 tab.write(u"\n")
             self.messagebox.showinfo(
                 "Info", "rpy file generated in out/rpy/{}.rpy".format(self.Outfilename))
+
+            self.data = []  # clear the cache
