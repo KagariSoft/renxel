@@ -20,6 +20,7 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+import json
 import csv
 import glob
 import os
@@ -34,32 +35,47 @@ class RenpyToExcel():
         self.data = []
         self.root = root
         self.messagebox = messagebox
+        self.csv_temp = ""
 
-    def get_data_from_tab(self):
+    def tab_to_csv(self):
         if glob.glob(self.fileName):
-            with open(self.fileName, 'r') as tab:
+            with open(self.fileName, 'r', encoding="UTF-8", newline='') as tab:
                 rows = tab.readlines()[1:]
-                for line in csv.reader(rows, delimiter="\t"):
-                    if line[1] == '':
-                        tupla = (line[0], "None", line[2], " ")
+                lines = csv.reader(rows, delimiter="\t")
+                for line in lines:
+                    print(line)
+                    if line[1] == "":
+                        t = (line[0], "None", line[2], " ")
+                        self.data.append(t)
+                    elif line[0] == "":
+                        t = ("None", line[1], line[2], " ")
+                        self.data.append(t)
                     else:
-                        tupla = (line[0], line[1], line[2], " ")
+                        t = (line[0], line[1], line[2], " ")
+                        self.data.append(t)
 
-                    self.data.append(tupla)
-                self.generate_excel()
+                while self.data:
+                    time.sleep(1)
+                    self.generate_excel()
+                    break
         else:
             self.messagebox.showerror(
                 "Error", "No dialogue.tab file found in the current folder")
 
     def generate_excel(self):
+        directory = os.getcwd()
+
         df = DataFrame(self.data, columns=[
                        'id', 'Character', 'Dialogue', 'Translation'])
 
-        directory = os.getcwd()
         df.to_excel(directory+"/out/xlsx/dialogue.xlsx", index=False)
+
+        time.sleep(1)
 
         self.messagebox.showinfo(
             "Info", "xlsx file generated in out/xlsx/dialogue.xlsx")
+
+        self.data = []  # clear the cache
 
 
 class RenPyTLGenerator():
@@ -73,55 +89,62 @@ class RenPyTLGenerator():
         self.excel = excel
 
     def generator(self):
-
         if self.lang != "":
             rows = pd.read_excel(self.excel, usecols=[
                 'id', 'Character', 'Dialogue', 'Translation'])
             cv = rows.to_csv(index=False, index_label=False)
 
-            with open('out/temp/dialogue.tab', 'w') as f:
-                f.write(cv)
+            with open("out/temp/dialogue.csv", "w", encoding="UTF-8") as c:
+                c.write(cv)
 
-            time.sleep(1)
-            with open('out/temp/dialogue.tab', 'r') as tab:
-                rows = tab.readlines()[1:]
-                for line in csv.reader(rows):
-
-                    if line[1] == '':
-                        tupla = (line[0], "None", line[2], line[3])
-                    elif line[0] == '':
-                        tupla = ("string", line[1], line[2], line[3])
-                    else:
-                        tupla = (line[0], line[1], line[2], line[3])
-
-                    self.data.append(tupla)
-                self.write_translates()
-       
+            self.read_temporal_tab()
         else:
             self.messagebox.showerror(
                 "Error", "You are not provider the language")
 
+    def read_temporal_tab(self):
+
+        with open("out/temp/dialogue.csv", 'r', encoding="UTF-8") as tab:
+            rows = tab.readlines()[2:]
+            lines = csv.reader(rows, delimiter=",")
+
+            for l in lines:
+                if len(l) > 0:
+                    if l[0] == '':
+                        t = ("type:screen", l[1], l[2], l[3])
+                        self.data.append(t)
+                    else:
+                        t = (l[0], l[1], l[2], l[3])
+                        self.data.append(t)
+
+            while self.data:
+                time.sleep(1)
+                self.write_translates()
+                break
+
     def write_translates(self):
-        with open('out/rpy/{}.rpy'.format(self.Outfilename), 'w') as tab:
+        with open('out/rpy/{}.rpy'.format(self.Outfilename), 'w', encoding="UTF-8") as tab:
             for i in self.data:
 
-                if i[0] == "string":
+                if i[0] == "type:screen":
                     tab.write(u"translate {} {}:\n".format(
                         self.lang, "strings"))
 
                     tab.write(u'    old "{}"\n'.format(i[2]))
-                    tab.write(u'    new "{}"\n'.format(i[3]))
+                    tab.write(u'    new "{}"\n'.format(i[3].strip()))
                 else:
                     tab.write(u"translate {} {}:\n".format(
                         self.lang, i[0]))
 
                     if i[1] == "None":
                         tab.write(u'    # "{}"\n'.format(i[2]))
-                        tab.write(u'    "{}"\n'.format(i[3]))
+                        tab.write(u'    "{}"\n'.format(i[3].strip()))
                     else:
                         tab.write(u'    # {} "{}"\n'.format(i[1], i[2]))
-                        tab.write(u'    {} "{}"\n'.format(i[1], i[3]))
+                        tab.write(u'    {} "{}"\n'.format(i[1], i[3].strip()))
 
                 tab.write(u"\n")
             self.messagebox.showinfo(
                 "Info", "rpy file generated in out/rpy/{}.rpy".format(self.Outfilename))
+
+            self.data = []  # clear the cache

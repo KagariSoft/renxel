@@ -28,14 +28,15 @@ from tkinter import messagebox
 from tkinter import filedialog
 import webbrowser as wb
 
-_version = "1.0.4"
+_version = "1.0.5"
 _debug_version = "1.0.2"
 
 
 class Window():
     def __init__(self, root):
         self.root = root
-        self.root.title("Renxel")
+        self.root.title("Ren'Xel")
+         
         self.rpyname = 'readonly'
         self.root.resizable(0, 0)
         self.root.configure(padx=10, pady=10)
@@ -84,7 +85,7 @@ class Window():
         )
         if filename:
             rpyExcel.RenpyToExcel(self.root,
-                                  messagebox, file=filename).get_data_from_tab()
+                                  messagebox, file=filename).tab_to_csv()
 
     def OpenExcel(self):
         filename = filedialog.askopenfilename(
@@ -109,7 +110,7 @@ def CheckVersion(root):
             "https://api.github.com/repos/KagariSoft/renxel/releases/latest")
         version = result.json()["tag_name"]
         if version > _version:
-            msg = messagebox.askokcancel(message="Renxel detected that there is a new version, do you want to update the app? This will open the Github.com page.",
+            msg = messagebox.askokcancel(message="Ren'Xel detected that there is a new version, do you want to update the app? This will open the Github.com page.",
                                          title="New version available v{}".format(version))
             if msg:
                 wb.open(
