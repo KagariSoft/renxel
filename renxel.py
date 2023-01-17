@@ -28,7 +28,7 @@ from tkinter import messagebox
 from tkinter import filedialog
 import webbrowser as wb
 
-_version = "1.0.5"
+_version = "1.0.6"
 _debug_version = "1.0.2"
 
 
@@ -36,7 +36,7 @@ class Window():
     def __init__(self, root):
         self.root = root
         self.root.title("Ren'Xel")
-         
+
         self.rpyname = 'readonly'
         self.root.resizable(0, 0)
         self.root.configure(padx=10, pady=10)
@@ -54,7 +54,7 @@ class Window():
         donate = tk.Button(self.root, text="Donate", command=self.Donate)
         close = tk.Button(self.root, text="Close", command=self.Close)
 
-        text = tk.Label(self.root, text="Renpy Folder language name:")
+        text = tk.Label(self.root, text="Ren'Py Folder language name:")
 
         generate.grid(row=0, column=0)
         generate.config(font=("Helvetica", 11), width=23)
@@ -113,8 +113,7 @@ def CheckVersion(root):
             msg = messagebox.askokcancel(message="Ren'Xel detected that there is a new version, do you want to update the app? This will open the Github.com page.",
                                          title="New version available v{}".format(version))
             if msg:
-                wb.open(
-                    "https://github.com/KagariSoft/renxel/releases/tag/{}".format(version))
+                wb.open("https://kagarisoft.itch.io/renxel")
                 root.destroy()
 
         else:
@@ -131,7 +130,7 @@ def __main__():
         os.makedirs("out/rpy")
         os.makedirs("out/temp")
     root = tk.Tk()
-    root.title("Renxel")
+    root.title("Ren'Xel")
     CheckVersion(root)
     Window(root)
     root.mainloop()
