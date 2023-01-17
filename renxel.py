@@ -28,7 +28,7 @@ from tkinter import messagebox
 from tkinter import filedialog
 import webbrowser as wb
 
-_version = "1.0.4"
+_version = "1.0.5"
 _debug_version = "1.0.2"
 
 

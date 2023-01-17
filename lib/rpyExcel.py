@@ -33,7 +33,7 @@ class RenpyToExcel():
         self.fileName = file
         self.data = []
         self.root = root
-        self.messagebox = messagebox,
+        self.messagebox = messagebox
         self.csv_temp = ""
 
     def tab_to_csv(self):
