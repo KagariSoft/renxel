@@ -84,7 +84,7 @@ class Window():
         )
         if filename:
             rpyExcel.RenpyToExcel(self.root,
-                                  messagebox, file=filename).get_data_from_tab()
+                                  messagebox, file=filename).tab_to_csv()
 
     def OpenExcel(self):
         filename = filedialog.askopenfilename(

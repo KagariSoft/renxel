@@ -33,33 +33,39 @@ class RenpyToExcel():
         self.fileName = file
         self.data = []
         self.root = root
-        self.messagebox = messagebox
+        self.messagebox = messagebox,
+        self.csv_temp = ""
 
-    def get_data_from_tab(self):
-        if glob.glob(self.fileName):
-            with open(self.fileName, 'r') as tab:
-                rows = tab.readlines()[1:]
-                for line in csv.reader(rows, delimiter="\t"):
-                    if line[1] == '':
-                        tupla = (line[0], "None", line[2], " ")
-                    else:
-                        tupla = (line[0], line[1], line[2], " ")
+    def tab_to_csv(self):
 
-                    self.data.append(tupla)
+        with open(self.fileName, 'r', encoding="UTF-8", newline='') as tab:
+            rows = tab.readlines()[1:]
+            lines = csv.reader(rows, delimiter="\t")
+            for line in lines:
+                if line[1] == '':
+                    t = (line[0], "None", line[2], " ")
+                    self.data.append(t)
+                else:
+                    t = (line[0], line[1], line[2], " ")
+                    self.data.append(t)
+
+            while self.data:
+                time.sleep(1)
                 self.generate_excel()
-        else:
-            self.messagebox.showerror(
-                "Error", "No dialogue.tab file found in the current folder")
+                break
 
     def generate_excel(self):
+        directory = os.getcwd()
+
         df = DataFrame(self.data, columns=[
                        'id', 'Character', 'Dialogue', 'Translation'])
 
-        directory = os.getcwd()
         df.to_excel(directory+"/out/xlsx/dialogue.xlsx", index=False)
 
+        time.sleep(1)
+
         self.messagebox.showinfo(
-            "Info", "xlsx file generated in out/xlsx/dialogue.xlsx")
+            "Info", "xlsx file generated in {}/out/xlsx/dialogue.xlsx").format(directory)
 
 
 class RenPyTLGenerator():
@@ -96,7 +102,7 @@ class RenPyTLGenerator():
 
                     self.data.append(tupla)
                 self.write_translates()
-       
+
         else:
             self.messagebox.showerror(
                 "Error", "You are not provider the language")
