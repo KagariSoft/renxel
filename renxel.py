@@ -36,7 +36,7 @@ class Window():
     def __init__(self, root):
         self.root = root
         self.root.title("Ren'Xel")
-        self.root.iconbitmap("assets/window_icon.ico")
+         
         self.rpyname = 'readonly'
         self.root.resizable(0, 0)
         self.root.configure(padx=10, pady=10)
