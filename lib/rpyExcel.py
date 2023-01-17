@@ -87,15 +87,12 @@ class RenPyTLGenerator():
         if self.lang != "":
             rows = pd.read_excel(self.excel, usecols=[
                 'id', 'Character', 'Dialogue', 'Translation'])
+
             cv = rows.to_csv(index=False, index_label=False)
 
-            with open('out/temp/dialogue.tab', 'w', encoding="UTF-8", newline='') as f:
-
+            with open("out/temp/dialogue.tab", "w", encoding="utf8") as f:
                 f.write(cv)
-
-                time.sleep(1)
-
-                # TODO: FAIL HERE
+                f.close()
 
                 self.read_temporal_tab()
 
@@ -110,15 +107,16 @@ class RenPyTLGenerator():
             lines = csv.reader(rows, delimiter="\t")
 
             for line in lines:
-                if line[1] == '':
-                    tupla = (line[0], "None", line[2], line[3])
-                    self.data.append(tupla)
-                elif line[0] == '':
-                    tupla = ("string", line[1], line[2], line[3])
-                    self.data.append(tupla)
-                else:
-                    tupla = (line[0], line[1], line[2], line[3])
-                    self.data.append(tupla)
+                print(line)
+                # if line[1] == '':
+                #     tupla = (line[0], "None", line[2], line[3])
+                #     self.data.append(tupla)
+                # elif line[0] == '':
+                #     tupla = ("string", line[1], line[2], line[3])
+                #     self.data.append(tupla)
+                # else:
+                #     tupla = (line[0], line[1], line[2], line[3])
+                #     self.data.append(tupla)
 
             while self.data:
                 time.sleep(1)
