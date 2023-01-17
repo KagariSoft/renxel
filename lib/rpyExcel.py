@@ -37,22 +37,25 @@ class RenpyToExcel():
         self.csv_temp = ""
 
     def tab_to_csv(self):
+        if glob.glob(self.fileName):
+            with open(self.fileName, 'r', encoding="UTF-8", newline='') as tab:
+                rows = tab.readlines()[1:]
+                lines = csv.reader(rows, delimiter="\t")
+                for line in lines:
+                    if line[1] == '':
+                        t = (line[0], "None", line[2], " ")
+                        self.data.append(t)
+                    else:
+                        t = (line[0], line[1], line[2], " ")
+                        self.data.append(t)
 
-        with open(self.fileName, 'r', encoding="UTF-8", newline='') as tab:
-            rows = tab.readlines()[1:]
-            lines = csv.reader(rows, delimiter="\t")
-            for line in lines:
-                if line[1] == '':
-                    t = (line[0], "None", line[2], " ")
-                    self.data.append(t)
-                else:
-                    t = (line[0], line[1], line[2], " ")
-                    self.data.append(t)
-
-            while self.data:
-                time.sleep(1)
-                self.generate_excel()
-                break
+                while self.data:
+                    time.sleep(1)
+                    self.generate_excel()
+                    break
+        else:
+            self.messagebox.showerror(
+                "Error", "No dialogue.tab file found in the current folder")
 
     def generate_excel(self):
         directory = os.getcwd()
