@@ -129,11 +129,8 @@ def __main__():
         os.makedirs("out/xlsx")
         os.makedirs("out/rpy")
         os.makedirs("out/temp")
-    root = tk.Tk()
-    root.title("Ren'Xel")
+
     CheckVersion(root)
-    Window(root)
-    root.mainloop()
 
 
 __main__()
