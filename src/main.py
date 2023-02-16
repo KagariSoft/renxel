@@ -12,7 +12,7 @@ ctk.set_appearance_mode("dark")
 
 
 ### Default variables
-_VERSION = "1.0.8"
+_VERSION = "1.0.9"
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"./assets")
 GITHUB_URL = "https://api.github.com/repos/KagariSoft/renxel/releases/latest"
@@ -120,7 +120,8 @@ class App(ctk.CTk):
                 text="Update App",
                 width=self.button_width,
                 height=self.button_height,
-                state=self.update_button_state
+                state=self.update_button_state,
+                command=lambda: wb.open_new("https://kagarisoft.itch.io/renxel")
         )
         
         donate = ctk.CTkButton(
