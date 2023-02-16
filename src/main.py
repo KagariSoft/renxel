@@ -60,7 +60,7 @@ class App(ctk.CTk):
 
         self.geometry(f"{self.width}x{self.height}+{x_cordinate}+{y_cordinate}")
         self.resizable(False, False)
-        self.iconbitmap(self.relative_to_assets('window_icon.ico'))
+        self.iconbitmap('window_icon.ico')
 
         # Frames
         self.home_container = ctk.CTkFrame(self, fg_color="transparent")
