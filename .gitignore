@@ -4,8 +4,12 @@ __pycache__
 
 *.zip
 *.exe
+.sh
+.json
 build
 cli.sh
 renxel.spec
 
 Ren'Xel.spec
+old
+node_modules

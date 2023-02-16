@@ -3,6 +3,7 @@
     "**/*.rpyc": true,
     "**/*.rpa": true,
     "**/*.rpymc": true,
-    "**/cache/": true
+    "**/cache/": true,
+    "**/old/": true
   }
 }
