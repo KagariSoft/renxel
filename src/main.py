@@ -14,7 +14,7 @@ ctk.set_appearance_mode("dark")
 
 ### Default variables
 config = configparser.ConfigParser()
-config.read('./data/settings.set')
+config.read('./data/settings.ini')
 
 sections = config.sections()
 
