@@ -7,18 +7,25 @@ import webbrowser as wb
 import requests
 import lib.rpyExcel as rpyExcel
 import os
+import configparser
 
 ctk.set_appearance_mode("dark")
 
 
 ### Default variables
-_VERSION = "1.0.9"
+config = configparser.ConfigParser()
+config.read('./data/settings.set')
+
+sections = config.sections()
+
+FOLDER_ROOT = config['app']['rootFolder']
+
+
+_VERSION = "1.0.10"
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"./assets")
 GITHUB_URL = "https://api.github.com/repos/KagariSoft/renxel/releases/latest"
 DONATE_URL = "https://ko-fi.com/kagarisoft"
-
- 
 
 
 class App(ctk.CTk):
@@ -88,7 +95,7 @@ class App(ctk.CTk):
         
         self.excel = ctk.CTkButton(
                 self.home_container,
-                text="Open Game Folder",
+            text="Open base folder",
                 width=self.button_width,
                 height=self.button_height,
                 command=lambda: self.setGameFolder()
@@ -209,11 +216,17 @@ class App(ctk.CTk):
  
 
     def setGameFolder(self):
-        folder_selected = filedialog.askdirectory()
+        folder_selected = filedialog.askdirectory(initialdir=FOLDER_ROOT)
         if folder_selected:
-            self.gameFolder_root = folder_selected
-            self.excel.configure(text="Generate Excel", command=self.generateExcel)
-            self.rxcel.configure(state="normal")
+            if os.path.basename(folder_selected) != "game":
+                self.gameFolder_root = folder_selected
+                self.excel.configure(text="Generate Excel",
+                                     command=self.generateExcel)
+                self.rxcel.configure(state="normal")
+            else:
+                messagebox.showinfo("error",
+                                    "(%s) It cannot be used as root folder, the folder to be chosen must be the base folder, where the game folder is located." % (folder_selected))
+
     
     def ImportExcel(self):
 
