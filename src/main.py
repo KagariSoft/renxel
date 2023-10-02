@@ -1,7 +1,9 @@
 import customtkinter as ctk
+ 
 import tkinter as tk
 from tkinter import filedialog
 from tkinter import messagebox
+
 from pathlib import Path
 import webbrowser as wb
 import requests
@@ -36,7 +38,7 @@ class App(ctk.CTk):
 
     button_width = 338
     button_height = 41
-    update_button_state = "disabled"
+ 
     generate_button_state = "disabled"
     rpy_button_state = "disabled"
 
@@ -56,7 +58,7 @@ class App(ctk.CTk):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.CheckVersion()
+    
         self.title("Ren'Xel")
 
         screen_width = self.winfo_screenwidth()
@@ -67,7 +69,7 @@ class App(ctk.CTk):
 
         self.geometry(f"{self.width}x{self.height}+{x_cordinate}+{y_cordinate}")
         self.resizable(False, False)
-        self.iconbitmap('window_icon.ico')
+        self.iconphoto(False, tk.PhotoImage(file="window_icon.png"))
 
         # Frames
         self.home_container = ctk.CTkFrame(self, fg_color="transparent")
@@ -103,7 +105,7 @@ class App(ctk.CTk):
 
         self.rxcel = ctk.CTkButton(
                 self.home_container,
-                text="Import Ren'Xel generated",
+                text="Import Excel",
                 width=self.button_width,
                 height=self.button_height,
                 state="disabled",
@@ -122,14 +124,7 @@ class App(ctk.CTk):
                 }
         )
 
-        update_button = ctk.CTkButton(
-                self.home_container,
-                text="Update App",
-                width=self.button_width,
-                height=self.button_height,
-                state=self.update_button_state,
-                command=lambda: wb.open_new("https://kagarisoft.itch.io/renxel")
-        )
+ 
         
         donate = ctk.CTkButton(
                 self.home_container,
@@ -153,7 +148,7 @@ class App(ctk.CTk):
         self.excel.pack(padx=20, pady=10)
         self.rxcel.pack(padx=20, pady=10)
         self.rpy.pack(padx=20, pady=10)
-        update_button.pack(padx=20, pady=10)
+ 
         donate.pack(padx=20, pady=10)
         close_app.pack(padx=20,pady=3, side=tk.BOTTOM)
     
@@ -161,7 +156,7 @@ class App(ctk.CTk):
         directory = os.getcwd()
         lng = ctk.CTkLabel(self.generator_container, text="Select Language for Translation")
 
-        lang_templates_folders="{}\\data\\template".format(directory)
+        lang_templates_folders="{}/data/template".format(directory)
 
         for item in os.listdir(lang_templates_folders):
             self.language_list.append(item)
@@ -291,18 +286,6 @@ class App(ctk.CTk):
             
     def relative_to_assets(self, path: str) -> Path:
         return ASSETS_PATH / Path(path)
-
-    def CheckVersion(self):
-        try:
-            result = requests.get(GITHUB_URL)
-            version = result.json()["tag_name"]
-
-            if version > _VERSION:
-                self.update_button_state = "normal"
-
-        except Exception as e:
-            print(e)
-
 
 if __name__ == "__main__":
     app = App()
