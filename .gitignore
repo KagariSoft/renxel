@@ -13,6 +13,7 @@ renxel.spec
 Ren'Xel.spec
 old
 node_modules
-dist
+dist/renxel
 locale_build.txt
 build.txt
+./data
