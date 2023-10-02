@@ -23,7 +23,7 @@ sections = config.sections()
 FOLDER_ROOT = config['app']['rootFolder']
 
 
-_VERSION = "1.0.10"
+_VERSION = "1.0.11"
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"./assets")
 GITHUB_URL = "https://api.github.com/repos/KagariSoft/renxel/releases/latest"

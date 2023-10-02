@@ -15,3 +15,4 @@ old
 node_modules
 dist
 locale_build.txt
+build.txt
