@@ -1,5 +1,8 @@
 # Ren'Xel
 
+> [!WARNING]
+> This repository is no longer receiving updates and is out of date, you may have problems compiling. The latest stable version is 1.0.9/1.0.10.
+
 ## What is Ren'Xel?
 
 Ren'Xel, is an app that generates an Excel file from renpy's `dialogue.tab` file using python technology,
